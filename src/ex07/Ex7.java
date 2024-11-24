@@ -2,6 +2,9 @@ package ex07;
 
 import java.awt.EventQueue;
 
+import java.awt.*;
+import java.applet.Applet;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -13,7 +16,9 @@ import java.awt.event.ActionEvent;
 public class Ex7 {
 
   private JFrame frame;
-  private JPanel colorPanel;
+  private DiskPanel colorPanel;
+  
+  private CurrentColor crrntForeColor = new CurrentColor();
   private CurrentColor crrntBckColor = new CurrentColor();
 
   /**
@@ -47,8 +52,8 @@ public class Ex7 {
     frame.setBounds(100, 100, 450, 300);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    JPanel btnPanel = new JPanel();
-    frame.getContentPane().add(btnPanel, BorderLayout.NORTH);
+    JPanel btnPanel_north = new JPanel();
+    frame.getContentPane().add(btnPanel_north, BorderLayout.NORTH);
     
     JButton btnRed = new JButton("Red");
     btnRed.addActionListener(new ActionListener() {
@@ -57,7 +62,7 @@ public class Ex7 {
         colorPanel.setBackground(c);
       }
     });
-    btnPanel.add(btnRed);
+    btnPanel_north.add(btnRed);
     
     JButton btnGreen = new JButton("Green");
     btnGreen.addActionListener(new ActionListener() {
@@ -66,7 +71,7 @@ public class Ex7 {
         colorPanel.setBackground(c);
       }
     });
-    btnPanel.add(btnGreen);
+    btnPanel_north.add(btnGreen);
     
     JButton btnBlue = new JButton("Blue");
     btnBlue.addActionListener(new ActionListener() {
@@ -75,10 +80,79 @@ public class Ex7 {
         colorPanel.setBackground(c);
       }
     });
-    btnPanel.add(btnBlue);
+    btnPanel_north.add(btnBlue);
     
-    colorPanel = new JPanel();
+    
+    JPanel btnPanel_south = new JPanel();
+    frame.getContentPane().add(btnPanel_south, BorderLayout.SOUTH);
+    btnPanel_south.setLayout(new GridLayout(2,1));
+    
+    JPanel btnPanel_foreColor = new JPanel();
+    JPanel btnPanel_size = new JPanel();
+    btnPanel_south.add(btnPanel_foreColor);
+    btnPanel_south.add(btnPanel_size);
+    
+    JButton btnfRed = new JButton("fRed");
+    btnfRed.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        Color c = crrntForeColor.changeRed();
+        colorPanel.setForeground(c);
+      }
+    });
+    btnPanel_foreColor.add(btnfRed);
+    
+    JButton btnfGreen = new JButton("fGreen");
+    btnfGreen.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        Color c = crrntForeColor.changeGreen();
+        colorPanel.setForeground(c);
+      }
+    });
+    btnPanel_foreColor.add(btnfGreen);
+    
+    JButton btnfBlue = new JButton("fBlue");
+    btnfBlue.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        Color c = crrntForeColor.changeBlue();
+        colorPanel.setForeground(c);
+      }
+    });
+    btnPanel_foreColor.add(btnfBlue);
+    
+    int large_size = 150;
+    int medium_size = 100;
+    int small_size = 50;
+    
+    JButton Large = new JButton("Large");
+    Large.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        colorPanel.setRadius(large_size);
+        colorPanel.repaint();
+      }
+    });
+    btnPanel_size.add(Large);
+    
+    JButton Medium = new JButton("Medium");
+    Medium.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        colorPanel.setRadius(medium_size);
+        colorPanel.repaint();
+      }
+    });
+    btnPanel_size.add(Medium);
+    
+    JButton Small = new JButton("Small");
+    Small.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        colorPanel.setRadius(small_size);
+        colorPanel.repaint();
+      }
+    });
+    btnPanel_size.add(Small);
+    
+    colorPanel = new DiskPanel();
     colorPanel.setBackground(Color.BLACK);
+    colorPanel.setForeground(Color.BLACK);
     frame.getContentPane().add(colorPanel, BorderLayout.CENTER);
   }
 
